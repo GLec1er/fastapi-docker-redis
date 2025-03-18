@@ -1,0 +1,57 @@
+version: '3.9'
+
+services:
+  app:
+    container_name: backend
+    image: fastapi-docker-redis
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "8000:8000"
+    environment:
+      - TITLE=FastAPI Docker Redis
+      - DESCRIPTION=FastAPI Docker Redis
+      - POSTGRES_HOST=postgres
+
+    depends_on:
+      - postgres
+      - redis
+
+    networks:
+      - fastapi-docker-redis-network
+
+  postgres:
+    container_name: postgres
+    restart: on-failure
+    image: postgres:14.3-alpine
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+      - POSTGRES_DB=postgres
+    ports:
+      - "54321:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    networks:
+      - fastapi-docker-redis-network
+
+  redis:
+    container_name: redis
+    image: redis:alpine
+    ports:
+      - "63791:6379"
+    volumes:
+      - redis_data:/data
+    networks:
+      - fastapi-docker-redis-network
+
+volumes:
+  postgres_data:
+    driver: local
+
+  redis_data:
+    driver: local
+
+networks:
+  fastapi-docker-redis-network:
