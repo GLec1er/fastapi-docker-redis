@@ -24,6 +24,9 @@ class GlobalConfig:
     postgres_host: str = os.environ.get("POSTGRES_HOST", "localhost")
     postgres_port: int = os.environ.get("POSTGRES_PORT", 5432)
 
+    redis_host: str = os.environ.get("REDIS_HOST", "localhost")
+    redis_port: int = os.environ.get("REDIS_PORT", 6379)
+
     @property
     def sync_database_url(self) -> str:
         return f"postgresql://{self.postgres_user}:{self.postgres_password}@{self.postgres_host}:{self.postgres_port}/{self.postgres_db}"
