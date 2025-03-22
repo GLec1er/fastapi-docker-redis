@@ -3,7 +3,7 @@ name = "fastapi-docker-redis"
 version = "0.1.0"
 description = ""
 authors = [
-    {name = "Grigoriy Lavrov",email = "g.lavrov@vk.team"}
+    {name = "Grigoriy Lavrov"}
 ]
 
 readme = "README.md"
